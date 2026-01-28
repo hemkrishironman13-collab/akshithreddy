@@ -39,6 +39,12 @@ const Quiz: React.FC = () => {
     setShowExplanation(false);
     try {
       const q = await geminiService.generateQuiz(activeDiff);
+      if (!Array.isArray(q) || q.length === 0) {
+  alert("AI could not generate quiz. Please try again.");
+  setStarted(false);
+  setLoading(false);
+  return;
+}
       setQuestions(q);
     } catch (err) {
       console.error(err);
@@ -174,7 +180,9 @@ const Quiz: React.FC = () => {
     );
   }
 
-  const currentQ = questions[currentIdx];
+  if (!questions.length) return null;
+const currentQ = questions[currentIdx];
+
 
   return (
     <div className="max-w-3xl mx-auto space-y-10 animate-reveal">
