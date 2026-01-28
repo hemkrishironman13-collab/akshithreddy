@@ -1,0 +1,7 @@
+{
+  "name": "Nexus Shield & Knowledge Hub",
+  "description": "A comprehensive cybersecurity suite featuring URL/file scanning, password strength analysis, an AI assistant with multi-language support and speech, a dynamic dashboard, and an intelligent learning quiz system.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

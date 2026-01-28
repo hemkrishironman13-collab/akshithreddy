@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Shield</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #020617;
+            --aurora-1: #4f46e5;
+            --aurora-2: #7c3aed;
+            --aurora-3: #0ea5e9;
+            --aurora-4: #2dd4bf;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: #f9fafb;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* Sophisticated Aurora Background */
+        .aurora-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: radial-gradient(circle at top left, #0f172a, #020617);
+        }
+
+        .aurora-layer {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background-image: 
+                radial-gradient(ellipse at 50% 50%, var(--aurora-1) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 30%, var(--aurora-2) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 70%, var(--aurora-3) 0%, transparent 40%),
+                radial-gradient(ellipse at 40% 80%, var(--aurora-4) 0%, transparent 30%);
+            background-size: 50% 50%, 40% 40%, 45% 45%, 35% 35%;
+            background-repeat: no-repeat;
+            filter: blur(100px);
+            opacity: 0.25;
+            animation: aurora-rotate 60s linear infinite;
+        }
+
+        .aurora-wave {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent 45%,
+                rgba(79, 70, 229, 0.1) 48%,
+                rgba(45, 212, 191, 0.1) 50%,
+                rgba(79, 70, 229, 0.1) 52%,
+                transparent 55%
+            );
+            background-size: 200% 200%;
+            animation: aurora-wave 20s ease infinite;
+            filter: blur(40px);
+        }
+
+        @keyframes aurora-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes aurora-wave {
+            0% { background-position: 0% 50%; opacity: 0.3; }
+            50% { background-position: 100% 50%; opacity: 0.6; }
+            100% { background-position: 0% 50%; opacity: 0.3; }
+        }
+
+        /* Tech Grid Overlay */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black, transparent 90%);
+        }
+
+        /* Grain Texture */
+        .bg-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.04;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Animations */
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(30px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .animate-reveal { animation: reveal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .animate-stagger-1 { animation-delay: 0.1s; }
+        .animate-stagger-2 { animation-delay: 0.2s; }
+        .animate-stagger-3 { animation-delay: 0.3s; }
+        .animate-stagger-4 { animation-delay: 0.4s; }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(15, 23, 42, 0.7);
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "recharts": "https://esm.sh/recharts@^3.7.0"
+  }
+}
+</script>
+</head>
+<body>
+    <div class="aurora-container">
+        <div class="aurora-layer"></div>
+        <div class="aurora-wave" style="animation-delay: -5s;"></div>
+        <div class="aurora-wave" style="animation-delay: -12s; transform: rotate(180deg);"></div>
+    </div>
+    <div class="bg-grid"></div>
+    <div class="bg-grain"></div>
+    <div id="root"></div>
+</body>
+</html>
